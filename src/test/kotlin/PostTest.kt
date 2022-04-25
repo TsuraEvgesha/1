@@ -11,7 +11,7 @@ class WallServiceTest {
 
         val result = service.add(post)
 
-        assertEquals(1, result.id)
+        assertEquals(2, result.id)
     }
 
     @Test
