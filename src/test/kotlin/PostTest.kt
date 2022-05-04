@@ -25,7 +25,7 @@ class WallServiceTest {
             createdBy = 0, date = 555, "Updated", replyOwnerId = 0,
             replyPostId = 0, friendsOnly = false,
             comments = Any(), copyright = Any(), likes = Any(),
-            reposts = Object(), views = Any(), postType = "post",
+            reposts = Any(), views = Any(), postType = "post",
             signerId = 0, canPin = true, canDelete = true, canEdit = true,
             isPinned = false, markedAsAds = true, isFavorite = false,
             donut = Any(), postponedId = 0
@@ -46,11 +46,11 @@ class WallServiceTest {
             id = 4, ownerId = 50, fromId = 50,
             createdBy = 0, date = 555, "Updated", replyOwnerId = 0,
             replyPostId = 0, friendsOnly = false,
-            comments = Object(), copyright = Object(), likes = Object(),
-            reposts = Object(), views = Object(), postType = "post",
+            comments = Any(), copyright = Any(), likes = Any(),
+            reposts = Any(), views = Any(), postType = "post",
             signerId = 0, canPin = true, canDelete = true, canEdit = true,
             isPinned = false, markedAsAds = true, isFavorite = false,
-            donut = Object(), postponedId = 0
+            donut = Any(), postponedId = 0
         )
 
         val result = service.update(update)
