@@ -1,3 +1,4 @@
+
 data class Post(
     var id: Int=0,
     val ownerId: Int,
@@ -14,6 +15,9 @@ data class Post(
     val reposts: Any= Any(),
     val views: Any= Any(),
     val postType: String="post",
+    val postSource: Any = Any(),
+    val geo:Any?= null,
+    val copyHistory: Array<String?>,
     val signerId: Int=0,
     var canPin: Boolean= true,
     var canDelete: Boolean=true,
