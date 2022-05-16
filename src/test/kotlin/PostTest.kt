@@ -1,5 +1,4 @@
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Test
 
 class WallServiceTest {
@@ -58,6 +57,6 @@ class WallServiceTest {
 
         val result = service.update(update)
 
-        assertTrue(!result)
+        assertFalse(result)
     }
 }
