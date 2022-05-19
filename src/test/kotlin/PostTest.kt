@@ -25,7 +25,7 @@ class WallServiceTest {
             id = 2, ownerId = 50, fromId = 50,
             createdBy = 0, date = 555, "Updated", replyOwnerId = 0,
             replyPostId = 0, friendsOnly = false,
-            comments = Comments(), copyright = Copyright(), reposts = Reposts(),
+            comments = Comment(), copyright = Copyright(), reposts = Reposts(),
             views = Views(), postType = "post", copyHistory = null, signerId = 0,
             canPin = true, canDelete = true, canEdit = true, isPinned = false, markedAsAds = true,
             isFavorite = false, postponedId = 0
@@ -49,7 +49,7 @@ class WallServiceTest {
             id = 4, ownerId = 50, fromId = 50,
             createdBy = 0, date = 555, "Updated", replyOwnerId = 0,
             replyPostId = 0, friendsOnly = false,
-            comments = Comments(), copyright = Copyright(), reposts = Reposts(),
+            comments = Comment(), copyright = Copyright(), reposts = Reposts(),
             views = Views(), postType = "post", copyHistory = null, signerId = 0,
             canPin = true, canDelete = true, canEdit = true, isPinned = false, markedAsAds = true,
             isFavorite = false, postponedId = 0
@@ -59,4 +59,23 @@ class WallServiceTest {
 
         assertFalse(result)
     }
+    @Test
+    fun addComment(){
+        Comment(0,1,0,"Hi")
+        val id = 1
+        val result = 1
+        assertEquals(id,result)
+    }
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrow(){
+        val expected = PostNotFoundException::class
+        val comment =Comment(0,2,0,"Oops",false)
+        val result:Comment=createComment(2,comment)
+        assertEquals(expected,result)
+    }
+
+
+
+
+
 }

@@ -1,5 +1,6 @@
+
 data class Post(
-    var id: Int = 0,
+    var id: Int = 3,
     var ownerId: Int = 0,
     var fromId: Int = ownerId,
     val createdBy: Int = 0,
@@ -8,7 +9,7 @@ data class Post(
     val replyOwnerId: Int = 0,
     val replyPostId: Int = 0,
     val friendsOnly: Boolean = true,
-    val comments: Comments = Comments(),
+    val comments: Comment = Comment(),
     val copyright: Copyright = Copyright(),
     val reposts: Reposts = Reposts(),
     val views: Views = Views(),
@@ -96,6 +97,7 @@ data class Post(
         return result
     }
 
+
 }
 
 data class Geo(
@@ -158,13 +160,16 @@ data class Copyright(
     var type: String = ""
 )
 
-data class Comments(
-    var count: Int = 1,
-    var canPost: Boolean = true,
-    var groupsPost: Boolean = true,
-    var canClose: Boolean = false,
-    var canOpen: Boolean = false,
-) {
+data class Comment(
+    var fromId: Int = 1,
+    var id: Int = 3,
+    var date: Int = 212,
+    var text: String = "Hello world",
+    var deleted: Boolean = false
 
-}
+)
+class PostNotFoundException(text:String):Exception(text)
+
+
+
 
