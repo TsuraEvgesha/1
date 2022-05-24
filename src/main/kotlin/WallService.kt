@@ -1,14 +1,22 @@
+
+
 class WallService {
     private var posts = emptyArray<Post>()
     private var comments = emptyArray<Comment>()
     private var lastId = 1
+
+
+    @Throws(PostNotFoundException::class)
     fun createComment(comment: Comment):Comment{
-        for (post in posts) if (comment.id == post.id) {
-            comments += comment.copy(text=comment.text)
-            return comments.last()}
-        throw PostNotFoundException(text ="id is not found")
+        for (post in posts) {if (comment.id == post.id) {
+            comments += comment.copy(text = comment.text)
+            return comments.last() }
+        }
+        throw PostNotFoundException(message = "id is not found")
+
 
     }
+
 
     fun add(post: Post): Post{
         post.id = ++lastId
@@ -22,8 +30,6 @@ class WallService {
         }
         return false
     }
-
-
 
 
 }

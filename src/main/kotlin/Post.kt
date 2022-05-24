@@ -1,7 +1,8 @@
+import javax.sound.midi.MetaMessage
 
 data class Post(
     var id: Int = 3,
-    var ownerId: Int = 0,
+    var ownerId: Int = 3,
     var fromId: Int = ownerId,
     val createdBy: Int = 0,
     val date: Int,
@@ -161,7 +162,7 @@ data class Copyright(
 )
 
 
-class PostNotFoundException(text:String):Exception(text)
+class PostNotFoundException(message:String):RuntimeException(message)
 
 
 
