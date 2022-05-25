@@ -13,10 +13,9 @@ class NoteServiceTest {
 
     @Test
     fun testAdd() {
-        val service = NoteService
-        val note = service.add(Note(0, 0, " ", " ",0, false))
-        val result=1
-        assertEquals(note.id, result)
+        val noteTest = Note(1, 0, " ", " ",0, false)
+        val result = 1
+        assertEquals(noteTest.id, result)
     }
 
     @Test
