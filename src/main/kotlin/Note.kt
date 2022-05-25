@@ -1,9 +1,9 @@
 data class Note(
-    var id: Int,
-    var ownerId: Int,
-    val title: String,
-    val text: String,
-    val date: Int,
+    var id: Int=0,
+    var ownerId: Int=5,
+    val title: String="",
+    val text: String="",
+    val date: Int=9,
     var deleted: Boolean = false
 ) {
     override fun toString(): String {

@@ -5,7 +5,7 @@ interface NoteInterface<N, C> {
     fun deleteComment(id: Int): Boolean
     fun edit(id: Int, note: N): Boolean
     fun editComment(id: Int, comment: C): Boolean
-    fun get(id: Int)
+    fun get(id: Int):Boolean
     fun getById(id: Int)
     fun getComments(id: Int)
     fun restoreComment(id: Int): Boolean

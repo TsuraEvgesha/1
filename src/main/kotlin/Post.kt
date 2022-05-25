@@ -1,7 +1,5 @@
-import javax.sound.midi.MetaMessage
-
 data class Post(
-    var id: Int = 3,
+    var id: Int = 0,
     var ownerId: Int = 3,
     var fromId: Int = ownerId,
     val createdBy: Int = 0,
@@ -27,14 +25,11 @@ data class Post(
     var donut: Donut = Donut(),
     var isFavorite: Boolean = false,
     var postponedId: Int = 0,
-
     ){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
-
         other as Post
-
         if (id != other.id) return false
         if (ownerId != other.ownerId) return false
         if (fromId != other.fromId) return false
@@ -64,7 +59,6 @@ data class Post(
         if (donut != other.donut) return false
         if (isFavorite != other.isFavorite) return false
         if (postponedId != other.postponedId) return false
-
         return true
     }
 
@@ -97,8 +91,6 @@ data class Post(
         result = 31 * result + postponedId
         return result
     }
-
-
 }
 
 data class Geo(
@@ -129,20 +121,17 @@ data class Donut(
     var publishCopy: Boolean = false,
     var editMode: String = arrayOf("", "").toString()
 ) {
-
 }
 
 data class Views(
     var count: Int = 1
 ) {
-
 }
 
 data class Reposts(
     var count: Int = 0,
     var userReposted: Boolean = true
 ) {
-
 }
 
 data class Likes(
@@ -151,7 +140,6 @@ data class Likes(
     var canLike: Boolean = true,
     var canPublish: Boolean = true,
 ) {
-
 }
 
 data class Copyright(
@@ -159,7 +147,8 @@ data class Copyright(
     var link: String = "",
     var name: String = "",
     var type: String = ""
-)
+){
+}
 
 
 class PostNotFoundException(message:String):RuntimeException(message)

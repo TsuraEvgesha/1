@@ -8,9 +8,7 @@ class WallServiceTest {
         val service = WallService()
         val post = Post(ownerId = 12, text = "Text", date = 123456, friendsOnly = false, markedAsAds = false,
             copyHistory=null)
-
         val result=service.add(post)
-
         assertEquals(0, result.id)
     }
 
@@ -30,9 +28,7 @@ class WallServiceTest {
             canPin = true, canDelete = true, canEdit = true, isPinned = false, markedAsAds = true,
             isFavorite = false, postponedId = 0
         )
-
         val result = service.update(update)
-
         assertTrue(result)
     }
 
@@ -54,25 +50,26 @@ class WallServiceTest {
             canPin = true, canDelete = true, canEdit = true, isPinned = false, markedAsAds = true,
             isFavorite = false, postponedId = 0
         )
-
         val result = service.update(update)
-
         assertFalse(result)
     }
     @Test
     fun addComment(){
-        Comment(0,1,0,"Hi")
-        val id = 1
-        val result = 1
-        assertEquals(id,result)
+        val servise = WallService()
+        servise.add(Post(0,1,1,77,6766,"Вот так мы отдыхаем"))
+        servise.add(Post(1,0,0,75,6765,"Мы отдыхаем"))
+        val comment=Comment(0,1,0,"Hi")
+        val result=servise.createComment(comment)
+        assertEquals(comment,result)
     }
     @Test(expected = PostNotFoundException::class)
     fun shouldThrow(){
-        val expected = PostNotFoundException::class
-        val comment =Comment(5,2,0,"Oops",false)
-        val post=Post(6,4,5,1,1,"Привет")
-        val result:Comment=WallService().createComment(comment)
-        assertEquals(expected,result)
+        val servise = WallService()
+        servise.add(Post(0,1,1,77,6766,"Вот так мы отдыхаем"))
+        servise.add(Post(1,0,0,75,6765,"Мы отдыхаем"))
+        val comment = Comment(10,2,0,"Oops",false)
+        val result=servise.createComment(comment)
+        assertEquals("id is not found",result)
     }
 
 

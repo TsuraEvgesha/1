@@ -1,6 +1,6 @@
 object NoteService: NoteInterface <Note, NoteComment> {
-    var notes = mutableListOf<Note>()
-    var comments = mutableListOf<NoteComment>()
+    private var notes = mutableListOf<Note>()
+    private var comments = mutableListOf<NoteComment>()
 
     override fun add(note: Note): Note {
         val newNote = note.copy(id = notes.size + 1, deleted = false)
@@ -9,7 +9,7 @@ object NoteService: NoteInterface <Note, NoteComment> {
     }
 
     override fun createComment(id: Int, comment: NoteComment): NoteComment {
-        for (note in notes) {
+        notes.forEach { note ->
             if (!note.deleted) {
                 if (id == note.id) {
                     val newComment = comment.copy(noteId = note.id, commentId = comments.size + 1,
@@ -19,12 +19,12 @@ object NoteService: NoteInterface <Note, NoteComment> {
                 }
             }
         }
-        throw NoteException("Notes with this ID do not exist")
+        throw NoteException("ID $id do not exist")
     }
 
 
     override fun delete(id: Int): Boolean {
-        for ((index, note) in notes.withIndex()) {
+        notes.withIndex().forEach { (index, note) ->
             if (!note.deleted) {
                 if (id == note.id) {
                     notes[index] = note.copy(id = note.id, deleted = true)
@@ -32,11 +32,11 @@ object NoteService: NoteInterface <Note, NoteComment> {
                 }
             }
         }
-        throw NoteException("Notes with this ID do not exist")
+        throw NoteException("ID $id do not exist")
     }
 
     override fun deleteComment(idComment: Int): Boolean {
-        for ((index, comment) in comments.withIndex()) {
+        comments.withIndex().forEach { (index, comment) ->
             if (!comment.deleted) {
                 if (idComment == comment.commentId) {
                     comments[index] = comment.copy(commentId = comment.commentId, deleted = true)
@@ -44,11 +44,11 @@ object NoteService: NoteInterface <Note, NoteComment> {
                 }
             }
         }
-        throw CommentException("Comments with this ID do not exist")
+        throw CommentException("Comments with ID $idComment do not exist")
     }
 
     override fun edit(id: Int, newNote: Note): Boolean {
-        for ((index, note) in notes.withIndex()) {
+        notes.withIndex().forEach { (index, note) ->
             if (!note.deleted) {
                 if (id == note.id) {
                     notes[index] = note.copy(id = note.id, ownerId = note.id, title = newNote.title,
@@ -57,34 +57,38 @@ object NoteService: NoteInterface <Note, NoteComment> {
                 }
             }
         }
-        throw NoteException("Notes with this ID do not exist")
+        throw NoteException("Notes with ID $id do not exist")
     }
 
-    override fun editComment(commentId: Int, newComment: NoteComment): Boolean {
-        for ((index, comment) in comments.withIndex()) {
+    override fun editComment(id: Int, comment: NoteComment): Boolean {
+        comments.withIndex().forEach { (index, comment) ->
             if (!comment.deleted) {
-                if (commentId == comment.commentId) {
+                if (id == comment.commentId) {
                     comments[index] = comment.copy(noteId = comment.noteId, commentId = comment.commentId,
-                        deleted = false, message = newComment.message)
+                        deleted = false, message = comment.message)
                     return true
                 }
             }
         }
-        throw CommentException("Comments with this ID do not exist")
+        throw CommentException("Comments with ID $id do not exist")
     }
 
-    override fun get(ownerId: Int) {
-        for (note in notes) {
-            if (ownerId == note.id) {
+
+    override fun get(id: Int): Boolean {
+        notes.forEach { note ->
+            if (id == note.id) {
                 if (!note.deleted) {
                     println(note.title)
+                    return true
                 }
             }
         }
+        return false
     }
 
+
     override fun getById(id: Int) {
-        for (note in notes) {
+        notes.forEach { note ->
             if (id == note.id) {
                 if (!note.deleted) {
                     println("""title: ${note.title}, text: ${note.text}""")
@@ -94,26 +98,26 @@ object NoteService: NoteInterface <Note, NoteComment> {
     }
 
     override fun getComments(id: Int) {
-        for (comment in comments) {
+        comments.forEach { comment ->
             if (id == comment.noteId) {
                 println(comment.message)
             }
         }
     }
 
-    override fun restoreComment(commentId: Int): Boolean {
-        for ((index, comment) in comments.withIndex()) {
-            if (commentId == comment.commentId) {
+    override fun restoreComment(id: Int): Boolean {
+        comments.withIndex().forEach { (index, comment) ->
+            if (id == comment.commentId) {
                 if (comment.deleted) {
                     comments[index] = comment.copy(commentId = comment.commentId, deleted = false)
                     return true
                 }
             }
         }
-        throw CommentRestoreException("There is no deleted comment with this ID")
+        throw CommentRestoreException("There is no deleted comment with ID $id")
     }
 }
 
-class NoteException(message: String) : RuntimeException("Notes with this ID do not exist")
-class CommentException(message: String) : RuntimeException("Comments with this ID do not exist")
-class CommentRestoreException(message: String) : RuntimeException("There is no deleted comment with this ID")
+class NoteException(message: String) : RuntimeException(message)
+class CommentException(message: String) : RuntimeException(message)
+class CommentRestoreException(message: String) : RuntimeException(message)

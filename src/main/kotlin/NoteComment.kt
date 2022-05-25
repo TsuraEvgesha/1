@@ -6,7 +6,7 @@ data class NoteComment (
     var deleted: Boolean = true
 ) {
     override fun toString(): String {
-        return """Comment: (noteId = $noteId, ownerId = $ownerId, commentId = $commentId, deleted = $deleted
-            |   message = '$message')""".trimMargin()
+        return ("""Comment: (noteId = $noteId, ownerId = $ownerId, commentId = $commentId, deleted = $deleted
+            |   message = '$message')""".trimMargin())
     }
 }

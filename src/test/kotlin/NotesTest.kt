@@ -13,73 +13,57 @@ class NoteServiceTest {
 
     @Test
     fun testAdd() {
-        val noteTest = Note(0, 0, " ", " ",0, false)
-        noteTest.id = 1
-        val result = 1
-        assertEquals(noteTest.id, result)
+        val service = NoteService
+        val note = service.add(Note(0, 0, " ", " ",0, false))
+        val result=1
+        assertEquals(note.id, result)
     }
 
     @Test
     fun testCreateComment() {
         val noteTest = Note(0, 1, " ", " ", 0,false)
-        noteTest.id = 1
         val commentTest = NoteComment(1, 0," ", 0, false)
-        commentTest.commentId = 1
         assertEquals(commentTest.commentId, noteTest.id)
     }
 
     @Test
     fun testDelete() {
-        val noteTest= Note(0, 0, " ", " ", 0,false)
-        add(noteTest)
-        noteTest.id = 1
-        delete(1)
-        noteTest.deleted = true
-        val result = true
-        assertEquals(noteTest.deleted, result)
+        val service = NoteService
+        service.add(Note(1, 0, " ", " ", 0,false))
+        assertEquals(true, delete(1))
     }
 
     @Test
     fun testDeleteComment() {
-        val noteTest= Note(0, 0, " ", " ", 0,false)
-        add(noteTest)
-        val commentTest: NoteComment = NoteComment(0, 0," ", 0, false)
-        createComment(1, commentTest)
-        deleteComment(1)
-        commentTest.deleted = true
-        val result = true
-        assertEquals(commentTest.deleted, result)
+        val service = NoteService
+        service.add(Note(0, 0, " ", " ", 0,false))
+        service.createComment(1,NoteComment(0, 0," ", 0, false))
+        assertEquals(deleteComment(1), true)
     }
 
     @Test
     fun testEdit() {
-        val noteTest= Note(0, 0, " ", " ", 0,false)
-        add(noteTest)
-        noteTest.id = 1
-        edit(1, noteTest)
-        noteTest.deleted = false
-        val result = false
-        assertEquals(noteTest.deleted, result)
+        val service = NoteService
+        val noteTest= service.add(Note(0, 0, " ", " ", 0,false))
+        val result = true
+        assertEquals(edit(1, noteTest), result)
     }
 
     @Test
     fun testEditComment() {
-        val noteTest= Note(0, 0, "", "", 0,false)
-        add(noteTest)
-        val commentTest: NoteComment = NoteComment(0, 0,"", 0,true)
-        createComment(1, commentTest)
-        editComment(1, commentTest)
-        commentTest.deleted = false
-        val result= false
-        assertEquals(commentTest.deleted, result)
+        val service = NoteService
+        service.add(Note(0, 0, "", "", 0,false))
+        val commentTest = service.createComment(1,NoteComment(0, 0,"", 0,true))
+        val result= true
+        assertEquals(service.editComment(1, commentTest), result)
     }
 
     @Test
     fun testGetNote() {
-        val noteTest = Note(10, 0, "title", "", 0,false)
-        add(noteTest)
-        val expected = "title"
-        assertEquals(noteTest.title, expected)
+        val service = NoteService
+        service.add(Note(10, 0, "title", "", 0,false))
+        val result = true
+        assertEquals(service.get(1),result)
     }
 
     @Test
